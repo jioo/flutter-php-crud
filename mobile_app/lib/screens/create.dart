@@ -13,7 +13,6 @@ class Create extends StatefulWidget {
 }
 
 class _CreateState extends State<Create> {
-
   // Required for form validations
   final _formKey = GlobalKey<FormState>();
 
@@ -38,6 +37,18 @@ class _CreateState extends State<Create> {
     // Remove all existing routes until the Home.dart, then rebuild Home.
     Navigator.of(context)
         .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+  }
+
+  String validateName(String value) {
+    if (value.length < 3) return 'Name must be more than 2 charater';
+    return null;
+  }
+
+  String validateAge(String value) {
+    Pattern pattern = r'(?<=\s|^)\d+(?=\s|$)';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value)) return 'Age must be a number';
+    return null;
   }
 
   @override
@@ -66,36 +77,20 @@ class _CreateState extends State<Create> {
             padding: EdgeInsets.all(12),
             child: Form(
               key: _formKey,
+              autovalidate: true,
               child: Column(
                 children: <Widget>[
                   TextFormField(
                     controller: nameController,
-                    decoration: InputDecoration(
-                      hintText: 'Name',
-                      labelText: 'Name',
-                    ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter name';
-                      }
-                      return null;
-                    },
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(labelText: 'Name'),
+                    validator: validateName,
                   ),
                   TextFormField(
                     controller: ageController,
-                    decoration: InputDecoration(
-                      hintText: 'Age',
-                      labelText: 'Age',
-                    ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter age';
-                      }
-                      return null;
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(labelText: 'Age'),
+                    validator: validateAge,
                   ),
                 ],
               ),

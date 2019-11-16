@@ -68,18 +68,22 @@ class HomeState extends State<Home> {
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index) {
                 var data = snapshot.data[index];
-                return ListTile(
-                  title: Text(data.name),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) {
-                          return Details(student: data);
-                        },
-                      ),
-                    );
-                  },
+                return Card(
+                  child: ListTile(
+                    leading: Icon(Icons.person),
+                    trailing: Icon(Icons.view_list),
+                    title: Text(data.name, style: TextStyle(fontSize: 20),),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) {
+                            return Details(student: data);
+                          },
+                        ),
+                      );
+                    },
+                  ),
                 );
               },
             );
