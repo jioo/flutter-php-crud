@@ -1,5 +1,5 @@
-name: first_flutter
-description: A new Flutter project.
+name: flutter_php
+description: Very simple and straightforward example of CRUD(Create, Read, Update, Delete) using Flutter & PHP
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
