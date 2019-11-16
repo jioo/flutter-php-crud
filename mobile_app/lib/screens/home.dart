@@ -7,22 +7,6 @@ import '../models/Student.dart';
 import './details.dart';
 import './create.dart';
 
-Future<List<Student>> getStudentList() async {
-  final response = await http.get("${Env.URL_PREFIX}/list.php");
-
-  // var jsonData = json.decode(response.body);
-  // List<Student> students = jsonData.map((Map model) => Student.fromJson(model)).toList();
-  // return students;
-
-  var jsonData = json.decode(response.body);
-  List<Student> students = [];
-  for (var data in jsonData) {
-    students.add(Student.fromJson(data));
-  }
-
-  return students;
-}
-
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
 
@@ -37,10 +21,18 @@ class HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    students = getStudentList();
+  }
 
-    setState(() {
-      students = getStudentList();
-    });
+  Future<List<Student>> getStudentList() async {
+    final response = await http.get("${Env.URL_PREFIX}/list.php");
+
+    final items = json.decode(response.body).cast<Map<String, dynamic>>();
+    List<Student> students = items.map<Student>((json) {
+      return Student.fromJson(json);
+    }).toList();
+
+    return students;
   }
 
   @override
@@ -49,6 +41,16 @@ class HomeState extends State<Home> {
       key: studentListKey,
       appBar: AppBar(
         title: Text('Student List'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: () {
+              setState(() {
+                students = getStudentList();
+              });
+            },
+          )
+        ],
       ),
       body: Center(
         child: FutureBuilder<List<Student>>(
