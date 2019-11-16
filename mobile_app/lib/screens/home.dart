@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import '../env.dart';
+import '../page_transitions.dart';
 import '../models/student.dart';
 import './details.dart';
 import './create.dart';
@@ -72,14 +73,16 @@ class HomeState extends State<Home> {
                   child: ListTile(
                     leading: Icon(Icons.person),
                     trailing: Icon(Icons.view_list),
-                    title: Text(data.name, style: TextStyle(fontSize: 20),),
+                    title: Text(
+                      data.name,
+                      style: TextStyle(fontSize: 20),
+                    ),
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (_) {
-                            return Details(student: data);
-                          },
+                        EnterExitRoute(
+                          exitPage: Home(),
+                          enterPage: Details(student: data),
                         ),
                       );
                     },
