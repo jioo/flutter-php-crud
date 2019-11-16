@@ -9,8 +9,13 @@ Very simple and straightforward example of CRUD(Create, Read, Update, Delete) us
 
 # Setup
 1. Import school.db in your database
-2. Update db.php with you database credentials
-3. Update lib/env.dart with your IPV4 Adress
+2. Run in git bash
+    ```bash
+    # This will create db.php and mobile_app/lib/env.dart files
+    ./setup.sh 
+    ```
+3. Update db.php with you database credentials
+4. Update lib/env.dart with your IPV4 Address
 
 # Installation
 ```bash
