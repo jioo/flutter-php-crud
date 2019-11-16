@@ -1,4 +1,4 @@
-# first_flutter
+# flutter_php
 
 A new Flutter project.
 
