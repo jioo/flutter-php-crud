@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import '../env.dart';
-import '../models/Student.dart';
+import '../models/student.dart';
 import './details.dart';
 import './create.dart';
 

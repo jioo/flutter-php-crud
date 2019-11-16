@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../env.dart';
-import '../models/Student.dart';
+import '../models/student.dart';
 import './edit.dart';
 
 class Details extends StatefulWidget {

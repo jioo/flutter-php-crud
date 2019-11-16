@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../env.dart';
+import '../widgets/form.dart';
 
 class Create extends StatefulWidget {
   final Function refreshStudentList;
@@ -14,7 +15,7 @@ class Create extends StatefulWidget {
 
 class _CreateState extends State<Create> {
   // Required for form validations
-  final _formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   // Handles text onchange
   TextEditingController nameController = new TextEditingController();
@@ -39,18 +40,6 @@ class _CreateState extends State<Create> {
         .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   }
 
-  String validateName(String value) {
-    if (value.length < 3) return 'Name must be more than 2 charater';
-    return null;
-  }
-
-  String validateAge(String value) {
-    Pattern pattern = r'(?<=\s|^)\d+(?=\s|$)';
-    RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(value)) return 'Age must be a number';
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +52,7 @@ class _CreateState extends State<Create> {
           color: Colors.blue,
           textColor: Colors.white,
           onPressed: () {
-            if (_formKey.currentState.validate()) {
+            if (formKey.currentState.validate()) {
               _onConfirm(context);
             }
           },
@@ -75,25 +64,10 @@ class _CreateState extends State<Create> {
         child: Center(
           child: Padding(
             padding: EdgeInsets.all(12),
-            child: Form(
-              key: _formKey,
-              autovalidate: true,
-              child: Column(
-                children: <Widget>[
-                  TextFormField(
-                    controller: nameController,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(labelText: 'Name'),
-                    validator: validateName,
-                  ),
-                  TextFormField(
-                    controller: ageController,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(labelText: 'Age'),
-                    validator: validateAge,
-                  ),
-                ],
-              ),
+            child: AppForm(
+              formKey: formKey,
+              nameController: nameController,
+              ageController: ageController,
             ),
           ),
         ),
