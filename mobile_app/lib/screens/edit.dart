@@ -15,11 +15,14 @@ class Edit extends StatefulWidget {
 }
 
 class _EditState extends State<Edit> {
+
+  // Handles text onchange
   TextEditingController nameController;
   TextEditingController ageController;
 
-  void editStudent(navigator) async {
-    http.post(
+  // Http post request to update data
+  Future editStudent() async {
+    return await http.post(
       "${Env.URL_PREFIX}/update.php",
       body: {
         "id": widget.student.id.toString(),
@@ -27,6 +30,12 @@ class _EditState extends State<Edit> {
         "age": ageController.text
       },
     );
+  }
+
+  void _onConfirm(context) {
+    editStudent();
+
+    // Remove all existing routes until the Home.dart, then rebuild Home.
     Navigator.of(context)
         .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   }
@@ -50,7 +59,7 @@ class _EditState extends State<Edit> {
           color: Colors.blue,
           textColor: Colors.white,
           onPressed: () {
-            editStudent(context);
+            _onConfirm(context);
           },
         ),
       ),

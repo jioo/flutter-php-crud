@@ -2,33 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../env.dart';
-import '../models/Student.dart';
 
 class Create extends StatefulWidget {
-  final Student student;
+  final Function refreshStudentList;
 
-  Create({this.student});
+  Create({this.refreshStudentList});
 
   @override
   _CreateState createState() => _CreateState();
 }
 
 class _CreateState extends State<Create> {
+
+  // Required for form validations
   final _formKey = GlobalKey<FormState>();
 
+  // Handles text onchange
   TextEditingController nameController = new TextEditingController();
   TextEditingController ageController = new TextEditingController();
 
-  void createStudent(context) async {
-    await http.post(
+  // Http post request to create new data
+  Future _createStudent() async {
+    return await http.post(
       "${Env.URL_PREFIX}/create.php",
       body: {
         "name": nameController.text,
         "age": ageController.text,
       },
     );
+  }
 
-    Navigator.pop(context, true);
+  void _onConfirm(context) async {
+    await _createStudent();
+
+    // Remove all existing routes until the Home.dart, then rebuild Home.
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   }
 
   @override
@@ -44,7 +53,7 @@ class _CreateState extends State<Create> {
           textColor: Colors.white,
           onPressed: () {
             if (_formKey.currentState.validate()) {
-              createStudent(context);
+              _onConfirm(context);
             }
           },
         ),

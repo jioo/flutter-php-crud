@@ -5,9 +5,7 @@ import './screens/create.dart';
 import './screens/details.dart';
 import './screens/edit.dart';
 
-void main() {
-  runApp(App());
-}
+void main() => runApp(App());
 
 class App extends StatelessWidget {
   @override

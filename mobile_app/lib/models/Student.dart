@@ -12,4 +12,9 @@ class Student {
       age: json['age'],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'age': age,
+  };
 }

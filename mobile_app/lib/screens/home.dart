@@ -35,6 +35,12 @@ class HomeState extends State<Home> {
     return students;
   }
 
+  void refreshStudentList() {
+    setState(() {
+      students = getStudentList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,9 +51,7 @@ class HomeState extends State<Home> {
           IconButton(
             icon: Icon(Icons.refresh),
             onPressed: () {
-              setState(() {
-                students = getStudentList();
-              });
+              refreshStudentList();
             },
           )
         ],
@@ -91,10 +95,5 @@ class HomeState extends State<Home> {
         },
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }
