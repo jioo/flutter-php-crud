@@ -16,13 +16,3 @@ Very simple and straightforward example of CRUD(Create, Read, Update, Delete) us
     ```
 3. Update db.php with you database credentials
 4. Update lib/env.dart with your IPV4 Address
-
-# Installation
-```bash
-# Clone this repo under PHP's htdocs
-git clone https://github.com/jioo/flutter-php-crud.git
-cd flutter-php-crud
-
-# OR if your using VS Code just press F5 to run
-flutter run
-```
